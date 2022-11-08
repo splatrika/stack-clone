@@ -85,6 +85,7 @@ namespace Splatrika.StackClone.Presenter
                 block.Reset();
             }
             SetHeight(0);
+            _towerFundament.material.color = Model.Last.Color;
         }
 
 
