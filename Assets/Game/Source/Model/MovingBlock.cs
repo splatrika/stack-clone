@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Splatrika.StackClone.Model
 {
-    public class MovingBlock : IUpdatable
+    public class MovingBlock : IUpdatable, IResetable
     {
         public Block Block => new Block(Rect, Color);
         public bool IsDestroyed { get; private set; }
@@ -26,12 +26,15 @@ namespace Splatrika.StackClone.Model
         private Vector2[] _directions;
         private int _currentDirection;
         private Rect _rect;
+
+        private Rect _startRect { get; }
+
         private ITower _tower { get; }
         private IColorService _colorService { get; }
 
         public event Action Destroyed;
         public event Action PushedToTower;
-
+        public event Action Reseted;
 
         public MovingBlock(
             MovingBlockConfiguration configuration,
@@ -50,6 +53,8 @@ namespace Splatrika.StackClone.Model
             Acceleration = configuration.Acceleration;
             TimeAcceleration = configuration.TimeAcceleration;
             Bounds = configuration.Bounds;
+
+            _startRect = configuration.StartRect;
         }
 
 
@@ -101,6 +106,20 @@ namespace Splatrika.StackClone.Model
             var position = Mathf.PingPong(Time * TotalSpeed, 2) - 1;
 
             _rect.center = Direction * position * Bounds.size + MovementOffset;
+        }
+
+
+        public void Reset()
+        {
+            _currentDirection = 0;
+            Time = 0;
+            TimeSpeed = 0;
+            Speed = MinSpeed;
+            _rect = _startRect;
+            Color = _colorService.Next();
+            MovementOffset = _rect.center - MovementCenter;
+            IsDestroyed = false;
+            Reseted?.Invoke();
         }
     }
 }
