@@ -3,8 +3,9 @@ using UnityEngine;
 
 namespace Splatrika.StackClone.Model
 {
-    public class MovingBlock : IUpdatable, IResetable
+    public class MovingBlock : IUpdatable, IResetable, IRunnable
     {
+        public bool IsRunned { get; private set; }
         public Block Block => new Block(Rect, Color);
         public bool IsDestroyed { get; private set; }
         public Rect Rect => _rect;
@@ -35,6 +36,8 @@ namespace Splatrika.StackClone.Model
         public event Action Destroyed;
         public event Action PushedToTower;
         public event Action Reseted;
+        public event Action Runned;
+
 
         public MovingBlock(
             MovingBlockConfiguration configuration,
@@ -64,6 +67,10 @@ namespace Splatrika.StackClone.Model
             {
                 throw new InvalidOperationException("Block is destroyed");
             }
+            if (!IsRunned)
+            {
+                throw new InvalidOperationException("Block is not runned");
+            }
 
             var block = new Block(Rect, Color);
             _tower.AddBlock(block, out bool perfect, out bool finished);
@@ -91,7 +98,7 @@ namespace Splatrika.StackClone.Model
 
         public void Update(float deltaTime)
         {
-            if (IsDestroyed)
+            if (IsDestroyed || !IsRunned)
             {
                 return;
             }
@@ -109,8 +116,16 @@ namespace Splatrika.StackClone.Model
         }
 
 
+        public void Run()
+        {
+            IsRunned = true;
+            Runned?.Invoke();
+        }
+
+
         public void Reset()
         {
+            IsRunned = false;
             _currentDirection = 0;
             Time = 0;
             TimeSpeed = 0;
