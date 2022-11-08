@@ -66,8 +66,11 @@ namespace Splatrika.StackClone.Scene
             Container.BindInterfacesAndSelfTo<Tower>()
                 .AsSingle();
 
-            Container.Bind<MovingBlock>()
-                .To<MovingBlock>()
+            Container.BindInterfacesAndSelfTo<MovingBlock>()
+                .AsSingle();
+
+            Container.Bind<IGameLifeService>()
+                .To<GameLifeService>()
                 .AsSingle();
         }
 
