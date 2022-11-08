@@ -45,12 +45,14 @@ namespace Splatrika.StackClone.Presenter
             _towerFundament.material.color = model.Last.Color;
 
             model.BlockAdded += OnBlockAdded;
+            model.Reseted += OnReseted;
         }
 
 
         private void OnDestroy()
         {
             Model.BlockAdded -= OnBlockAdded;
+            Model.Reseted -= OnReseted;
         }
 
 
@@ -70,14 +72,29 @@ namespace Splatrika.StackClone.Presenter
             blockPresenter.Init(block);
             blockPresenter.SetTop(Height);
             _used.Enqueue(blockPresenter);
-            Height += blockPresenter.Height;
+            SetHeight(Height + blockPresenter.Height);
 
+            // here will be perfect effect call
+        }
+
+
+        private void OnReseted()
+        {
+            foreach (var block in _used)
+            {
+                block.Reset();
+            }
+            SetHeight(0);
+        }
+
+
+        private void SetHeight(float height)
+        {
+            Height = height;
             _towerHeight.position = new Vector3(
                 transform.position.x,
                 Height,
                 transform.position.z);
-
-            // here will be perfect effect call
         }
     }
 }
