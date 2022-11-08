@@ -1,0 +1,16 @@
+{
+    "name": "PresenterAssembly",
+    "rootNamespace": "Splatrika.StackClone.Presenter",
+    "references": [
+        "GUID:6ea7b6bb120c548edae08a408ab1e5f0"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
