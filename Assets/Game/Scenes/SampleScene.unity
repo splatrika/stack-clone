@@ -343,7 +343,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.25
+  orthographic size: 2.77
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 1036873441}
   - component: {fileID: 1036873440}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Fundament
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -497,13 +497,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1036873439}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 1156851842}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1156851840
 GameObject:
@@ -515,6 +515,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1156851842}
   - component: {fileID: 1156851841}
+  - component: {fileID: 1156851843}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -537,6 +538,7 @@ MonoBehaviour:
   _prefab: {fileID: 1697394624799887415, guid: a43ea27f284e0451f8ceb0568d60e7b1, type: 3}
   _poolSize: 100
   _towerHeight: {fileID: 1560261819}
+  _towerFundament: {fileID: 1036873441}
 --- !u!4 &1156851842
 Transform:
   m_ObjectHideFlags: 0
@@ -550,9 +552,25 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1560261819}
+  - {fileID: 1036873443}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1156851843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156851840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1bf55a4c43bb4454bc5e4d465bd4bc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 6606335410463498240, guid: 440299c6393e54dc595285eb80904c8d, type: 3}
+  _towerPresenter: {fileID: 1156851841}
+  _poolSize: 5
 --- !u!1001 &1384928205
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -806,7 +824,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1560261819}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 2.25
+    OrthographicSize: 2.77
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -836,7 +854,7 @@ Transform:
   m_Children:
   - {fileID: 495689748}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 30.829, y: 45, z: 0}
 --- !u!1 &2040244541
 GameObject:
