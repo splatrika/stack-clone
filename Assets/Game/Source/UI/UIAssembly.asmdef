@@ -1,0 +1,17 @@
+{
+    "name": "UIAssembly",
+    "rootNamespace": "Splatrika.StackClone.UI",
+    "references": [
+        "GUID:6ea7b6bb120c548edae08a408ab1e5f0",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
