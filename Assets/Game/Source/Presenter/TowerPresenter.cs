@@ -18,6 +18,9 @@ namespace Splatrika.StackClone.Presenter
         [SerializeField]
         private Transform _towerHeight;
 
+        [SerializeField]
+        private Renderer _towerFundament;
+
         private ILogger _logger;
         private Stack<BlockPresenter> _free;
         private Queue<BlockPresenter> _used;
@@ -38,6 +41,8 @@ namespace Splatrika.StackClone.Presenter
             {
                 _free.Push(Instantiate(_prefab));
             }
+
+            _towerFundament.material.color = model.Last.Color;
 
             model.BlockAdded += OnBlockAdded;
         }
@@ -64,6 +69,7 @@ namespace Splatrika.StackClone.Presenter
             }
             blockPresenter.Init(block);
             blockPresenter.SetTop(Height);
+            _used.Enqueue(blockPresenter);
             Height += blockPresenter.Height;
 
             _towerHeight.position = new Vector3(
