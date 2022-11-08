@@ -7,6 +7,7 @@ namespace Splatrika.StackClone.Model
     {
         public Block Last { get; private set; }
         public Block LastUncutted { get; private set; }
+        public int Blocks { get; private set; }
         public float PerfectDistance { get; }
         public bool IsFinished { get; private set; }
 
@@ -54,8 +55,9 @@ namespace Splatrika.StackClone.Model
             }
             LastUncutted = block;
             Last = block.Cut(Last.Rect);
-            BlockAdded?.Invoke(Last, perfect);
+            Blocks++;
             finished = false;
+            BlockAdded?.Invoke(Last, perfect);
         }
 
 
@@ -63,6 +65,7 @@ namespace Splatrika.StackClone.Model
         {
             Last = new Block(_startRect, _colorService.Next());
             LastUncutted = Last;
+            Blocks = 0;
             IsFinished = false;
             Reseted?.Invoke();
         }

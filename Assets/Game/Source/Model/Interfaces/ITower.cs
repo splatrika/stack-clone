@@ -6,6 +6,7 @@ namespace Splatrika.StackClone.Model
     {
         Block Last { get; }
         Block LastUncutted { get; }
+        int Blocks { get; }
         bool IsFinished { get; }
 
         delegate void BlockAddedAction(Block block, bool perfect);
