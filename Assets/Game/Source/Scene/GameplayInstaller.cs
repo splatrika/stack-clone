@@ -86,6 +86,10 @@ namespace Splatrika.StackClone.Scene
             var movingBlockPresenter = FindObjectOfType<MovingBlockPresenter>();
             Container.Inject(movingBlockPresenter);
             movingBlockPresenter.Init(movingBlock);
+
+            var slicesPresenter = FindObjectOfType<SlicesPresenter>();
+            Container.Inject(slicesPresenter);
+            slicesPresenter.Init(tower);
         }
 
 
