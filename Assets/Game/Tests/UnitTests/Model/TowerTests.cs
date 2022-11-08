@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Moq;
 using NUnit.Framework;
 using Splatrika.StackClone.Model;
 using UnityEngine;
@@ -10,6 +11,15 @@ namespace Splatrika.StackClone.UnitTests
 {
     public class TowerTests
     {
+        private Mock<IColorService> _colorServiceMock;
+
+
+        public TowerTests()
+        {
+            _colorServiceMock = new Mock<IColorService>();
+        }
+
+
         [Test]
         public void ShouldStartsWithStartBlock()
         {
@@ -22,7 +32,7 @@ namespace Splatrika.StackClone.UnitTests
                 startBlock.Color,
                 0);
 
-            var tower = new Tower(configuration);
+            var tower = new Tower(configuration, _colorServiceMock.Object);
 
             Assert.AreEqual(startBlock, tower.Last);
         }
@@ -44,7 +54,7 @@ namespace Splatrika.StackClone.UnitTests
                 lastBlock.Color,
                 0);
 
-            var tower = new Tower(configuration);
+            var tower = new Tower(configuration, _colorServiceMock.Object);
 
             Block? added = null;
             tower.BlockAdded += (block, _) => added = block;
@@ -69,7 +79,7 @@ namespace Splatrika.StackClone.UnitTests
                 color,
                 0);
 
-            var tower = new Tower(configuration);
+            var tower = new Tower(configuration, _colorServiceMock.Object);
             var finished = false;
             tower.Finished += () => finished = true;
             tower.AddBlock(addingBlock, out _, out bool wasFinished);
@@ -113,6 +123,32 @@ namespace Splatrika.StackClone.UnitTests
         }
 
 
+        [Test]
+        public void ShouldBeReseted()
+        {
+            var configuration = new TowerConfiguration(
+                startRect: new Rect(0, 0, 2, 2),
+                startColor: Color.green,
+                perfectDistance: 1);
+
+            var tower = new Tower(configuration, _colorServiceMock.Object);
+            var addingRect = new Rect(-10, 10, 2, 2);
+            tower.AddBlock(new Block(addingRect, Color.yellow), out _, out _);
+
+            var nextColor = Color.magenta;
+            _colorServiceMock.Setup(x => x.Next())
+                .Returns(nextColor);
+            var reseted = false;
+            tower.Reseted += () => reseted = true;
+            tower.Reset();
+
+            Assert.True(reseted);
+            Assert.False(tower.IsFinished);
+            Assert.AreEqual(tower.Last.Color, nextColor);
+            Assert.AreEqual(tower.Last.Rect, configuration.StartRect);
+        }
+
+
         private Tower GetFinished()
         {
             var lastRect = new Rect(-1, -1, 2, 2);
@@ -120,7 +156,7 @@ namespace Splatrika.StackClone.UnitTests
 
             var configuration = new TowerConfiguration(
                 lastRect, Color.cyan, 0);
-            var tower = new Tower(configuration);
+            var tower = new Tower(configuration, _colorServiceMock.Object);
             tower.AddBlock(new Block(addingRect, Color.red), out _, out _);
 
             return tower;
@@ -139,7 +175,7 @@ namespace Splatrika.StackClone.UnitTests
                 color,
                 perfectDistance);
 
-            var tower = new Tower(configuration);
+            var tower = new Tower(configuration, _colorServiceMock.Object);
             bool? isPerfect = null;
             tower.BlockAdded += (_, perfect) => isPerfect = perfect;
             tower.AddBlock(addingBlock, out bool wasPerfect, out _);
