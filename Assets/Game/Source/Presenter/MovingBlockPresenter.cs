@@ -28,6 +28,10 @@ namespace Splatrika.StackClone.Presenter
 
         protected override void OnUpdate(float deltaTime)
         {
+            if (Model.IsDestroyed || !Model.IsRunned)
+            {
+                return;
+            }
             _blockPresenter.Move(Model.Rect.center);
 
             if (Input.GetKeyDown(KeyCode.Space))
@@ -54,7 +58,6 @@ namespace Splatrika.StackClone.Presenter
 
         private void OnDestroyed()
         {
-            //_blockPresenter.Reset();
             _rigidBody.isKinematic = false;
         }
 
@@ -65,6 +68,7 @@ namespace Splatrika.StackClone.Presenter
             transform.position = Vector3.zero;
             transform.rotation = Quaternion.Euler(Vector3.zero);
             _blockPresenter.Init(Model.Block);
+            _blockPresenter.SetTop(0);
         }
     }
 }
