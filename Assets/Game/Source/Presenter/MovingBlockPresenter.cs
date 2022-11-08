@@ -19,6 +19,7 @@ namespace Splatrika.StackClone.Presenter
         {
             model.PushedToTower += OnPushedToTower;
             model.Destroyed += OnDestroyed;
+            model.Reseted += OnReseted;
             _rigidBody.isKinematic = true;
 
             _blockPresenter.Init(model.Block);
@@ -40,6 +41,7 @@ namespace Splatrika.StackClone.Presenter
         {
             Model.PushedToTower -= OnPushedToTower;
             Model.Destroyed -= OnDestroyed;
+            Model.Reseted -= OnReseted;
         }
 
 
@@ -54,6 +56,15 @@ namespace Splatrika.StackClone.Presenter
         {
             //_blockPresenter.Reset();
             _rigidBody.isKinematic = false;
+        }
+
+
+        private void OnReseted()
+        {
+            _rigidBody.isKinematic = true;
+            transform.position = Vector3.zero;
+            transform.rotation = Quaternion.Euler(Vector3.zero);
+            _blockPresenter.Init(Model.Block);
         }
     }
 }
