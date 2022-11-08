@@ -5,6 +5,7 @@ namespace Splatrika.StackClone.Model
     public interface ITower
     {
         Block Last { get; }
+        Block LastUncutted { get; }
         bool IsFinished { get; }
 
         delegate void BlockAddedAction(Block block, bool perfect);

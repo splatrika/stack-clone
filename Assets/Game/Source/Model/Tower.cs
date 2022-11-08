@@ -6,6 +6,7 @@ namespace Splatrika.StackClone.Model
     public class Tower : ITower
     {
         public Block Last { get; private set; }
+        public Block LastUncutted { get; private set; }
         public float PerfectDistance { get; }
         public bool IsFinished { get; private set; }
 
@@ -42,6 +43,7 @@ namespace Splatrika.StackClone.Model
                 updatedRect.center = Last.Rect.center;
                 block = new Block(updatedRect, block.Color);
             }
+            LastUncutted = block;
             Last = block.Cut(Last.Rect);
             BlockAdded?.Invoke(Last, perfect);
             finished = false;
