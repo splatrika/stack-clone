@@ -23,6 +23,14 @@ namespace Splatrika.StackClone.UI
         private void Start()
         {
             _run.onClick.AddListener(OnRunClicked);
+
+            _game.Reseted += OnGameReseted;
+        }
+
+
+        private void OnDestroy()
+        {
+            _game.Reseted -= OnGameReseted;
         }
 
 
