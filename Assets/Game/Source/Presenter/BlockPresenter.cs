@@ -14,7 +14,7 @@ namespace Splatrika.StackClone.Presenter
         private float _height;
 
 
-        public void Reset()
+        public void DoReset()
         {
             _cube.enabled = false;
         }
@@ -52,7 +52,7 @@ namespace Splatrika.StackClone.Presenter
 
         private void Awake()
         {
-            Reset();
+            DoReset();
         }
     }
 }

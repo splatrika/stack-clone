@@ -82,7 +82,7 @@ namespace Splatrika.StackClone.Presenter
         {
             foreach (var block in _used)
             {
-                block.Reset();
+                block.DoReset();
             }
             SetHeight(0);
             _towerFundament.material.color = Model.Last.Color;
