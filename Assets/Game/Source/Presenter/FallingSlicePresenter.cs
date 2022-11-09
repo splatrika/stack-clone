@@ -16,6 +16,7 @@ namespace Splatrika.StackClone.Presenter
 
         public void Init(Block block, float top)
         {
+            gameObject.SetActive(true);
             _transform.position = Vector3.zero;
             _transform.rotation = Quaternion.Euler(Vector3.zero);
             _block.Init(block);
@@ -25,10 +26,18 @@ namespace Splatrika.StackClone.Presenter
         }
 
 
+        public void DoReset()
+        {
+            _block.DoReset();
+            gameObject.SetActive(false);
+        }
+
+
         private void Awake()
         {
             _rigidbody.isKinematic = true;
             _transform = transform;
+            gameObject.SetActive(false);
         }
 
 

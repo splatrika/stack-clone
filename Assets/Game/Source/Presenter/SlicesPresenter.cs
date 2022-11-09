@@ -39,12 +39,14 @@ namespace Splatrika.StackClone.Presenter
             }
 
             model.BlockAdded += OnBlockAdded;
+            model.Reseted += OnReseted;
         }
 
 
         private void OnDestroy()
         {
             Model.BlockAdded -= OnBlockAdded;
+            Model.Reseted -= OnReseted;
         }
 
 
@@ -64,6 +66,15 @@ namespace Splatrika.StackClone.Presenter
             var slice = Model.LastUncutted.InverseCut(Model.Last.Rect);
             slicePresenter.Init(slice, _towerPresenter.Height);
             _used.Enqueue(slicePresenter);
+        }
+
+
+        private void OnReseted()
+        {
+            foreach (var slice in _used)
+            {
+                slice.DoReset();
+            }
         }
     }
 }
