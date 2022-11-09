@@ -79,6 +79,8 @@ namespace Splatrika.StackClone.Scene
         {
             base.Start();
 
+            Application.targetFrameRate = 60;
+
             var tower = Container.Resolve<Tower>();
             var movingBlock = Container.Resolve<MovingBlock>();
 
@@ -93,6 +95,12 @@ namespace Splatrika.StackClone.Scene
             var slicesPresenter = FindObjectOfType<SlicesPresenter>();
             Container.Inject(slicesPresenter);
             slicesPresenter.Init(tower);
+
+            var towerSoundsPresenter = FindObjectOfType<TowerSoundsPresenter>();
+            if (towerSoundsPresenter)
+            {
+                towerSoundsPresenter.Init(tower);
+            }
         }
 
 
