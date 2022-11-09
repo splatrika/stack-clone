@@ -1,16 +1,12 @@
 using Splatrika.StackClone.Model;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
 namespace Splatrika.StackClone.UI
 {
     public class GameUI : MonoBehaviour
     {
-        [SerializeField]
-        private Button _addBlock;
-
         [SerializeField]
         private TextMeshProUGUI _score;
 
@@ -35,16 +31,18 @@ namespace Splatrika.StackClone.UI
         {
             gameObject.SetActive(false);
 
-            _addBlock.onClick.AddListener(OnAddBlockClick);
             _tower.BlockAdded += OnTowerBlockAdded;
             _tower.Finished += OnTowerFinished;
             _game.Runned += OnGameRunned;
         }
 
 
-        private void OnAddBlockClick()
+        private void Update()
         {
-            _movingBlock.PushToTower();
+            if (Input.GetMouseButtonDown(0))
+            {
+                _movingBlock.PushToTower();
+            }
         }
 
 
