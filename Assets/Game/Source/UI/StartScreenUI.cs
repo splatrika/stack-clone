@@ -1,4 +1,5 @@
 using Splatrika.StackClone.Model;
+using Splatrika.StackClone.Presenter;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -10,19 +11,27 @@ namespace Splatrika.StackClone.UI
         [SerializeField]
         private Button _run;
 
+        [SerializeField]
+        private Button _credits;
+
         private IGameLifeService _game;
+        private IScenesService _scenesService;
 
 
         [Inject]
-        public void Construct(IGameLifeService game)
+        public void Construct(
+            IGameLifeService game,
+            IScenesService scenesService)
         {
             _game = game;
+            _scenesService = scenesService;
         }
 
 
         private void Start()
         {
             _run.onClick.AddListener(OnRunClicked);
+            _credits.onClick.AddListener(OnCreditsClicked);
 
             _game.Reseted += OnGameReseted;
         }
@@ -38,6 +47,12 @@ namespace Splatrika.StackClone.UI
         {
             _game.Run();
             gameObject.SetActive(false);
+        }
+
+
+        private void OnCreditsClicked()
+        {
+            _scenesService.Load(Scenes.Credits);
         }
 
 
