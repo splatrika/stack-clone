@@ -1,3 +1,5 @@
+using Splatrika.StackClone.Model;
+using Splatrika.StackClone.Presenter;
 using UnityEngine;
 using Zenject;
 
@@ -9,6 +11,10 @@ namespace Splatrika.StackClone.Scene
         {
             Container.Bind<ILogger>()
                 .FromInstance(Debug.unityLogger);
+
+            Container.Bind<IScenesService>()
+                .To<ScenesService>()
+                .AsSingle();
         }
     }
 }
