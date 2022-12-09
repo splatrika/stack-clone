@@ -1,6 +1,7 @@
 # New Super Stack XL
 
-It's a clone of mobile game called Stack
+It's a clone of mobile game called Stack.
+There's the WebGL build to play: https://splatrika.github.io/game-view.html?id=3
 
 ## How to run the game in editor
 
